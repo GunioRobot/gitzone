@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>gitzone - README</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-02-04 03:25:47 CET"/>
+<meta name="author" content="Gabor Adam Toth"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript" src="http://orgmode.org/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">gitzone - README</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 About </a></li>
+<li><a href="#sec-2">2 Installation </a></li>
+<li><a href="#sec-3">3 Usage </a>
+<ul>
+<li><a href="#sec-3_1">3.1 Zone files </a></li>
+<li><a href="#sec-3_2">3.2 Git repository </a></li>
+<li><a href="#sec-3_3">3.3 SSH commands </a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> About </h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+gitzone is a git-based zone file management tool for BIND. Users can update
+their zones in a git repository then during a push the zone files are checked,
+updated &amp; reloaded from git receive hooks. If there's an error in a file being
+pushed then the push is rejected, thus only correct files are stored on the
+server.
+</p>
+<p>
+gitzone-shell is a wrapper for git-shell that restricts the user to the zones
+repository and provides some additional commands for dynamic DNS updates &amp; SSH
+key management.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Installation </h2>
+<div class="outline-text-2" id="text-2">
+
+
+<ul>
+<li>
+edit the settings in gitzone-shell
+</li>
+<li>
+create users with ssh access and set their shell to gitzone-shell
+</li>
+<li>
+create a zones repo for each user and set receive.denyCurrentBranch to ignore,
+this allows pushing to a checked out repository. The checked out files are
+used for incrementing serials and validating the zones with named-checkzone
+<pre class="example">
+# cd ~$user
+# git init zones
+# ln -s zones $username  # needed for named-checkzone
+# cd zones
+# git config receive.denyCurrentBranch ignore
+</pre>
+
+</li>
+<li>
+create a .gitconfig for the user that contains user name &amp; user email (used
+for auto increment commits)
+</li>
+<li>
+edit the settings in gitzone.conf
+</li>
+<li>
+create a directory for each user in $zone_dir and chown it to the user, this
+will contain a clone of the user's repository, the zone files here should be
+included in named.conf.
+<pre class="example">
+# cd $zone_dir
+# mkdir $user
+# chown $user:$group $user
+</pre>
+
+</li>
+<li>
+edit named.conf and set directory in options to $zone_dir, e.g.:
+<pre class="example">
+options {
+  directory "/var/named";
+  // ...
+}
+</pre>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Usage </h2>
+<div class="outline-text-2" id="text-3">
+
+
+
+</div>
+
+<div id="outline-container-3_1" class="outline-3">
+<h3 id="sec-3_1"><span class="section-number-3">3.1</span> Zone files </h3>
+<div class="outline-text-3" id="text-3_1">
+
+
+<p>
+There are a few keywords you can use in the zone files:
+</p>
+<ul>
+<li>
+;AUTO_INCREMENT after a serial number to automatically increment it during
+a push. If the number is 8 digits and starts with 20 it's treated as a date.
+e.g.:
+<pre class="example">
+example.net.  IN  SOA  ns1.example.net. hostmaster.example.net. (
+                       2011013101  ;AUTO_INCREMENT
+                       1d 2h 4w 2d )
+</pre>
+
+
+</li>
+<li>
+$INCLUDE can be used to include other files from the repository, the file
+names should be prefixed with the user name
+</li>
+<li>
+;INCLUDED_BY on the first line of a file indicates what other files include
+this file. When this file is committed &amp; pushed all the other files listed
+after ;INCLUDED_BY are reloaded as well.
+
+<p>
+E.g. if you have the following files in the repository then a change in
+example-common would result in the reload of both example.net &amp; example.org:
+</p><ul>
+<li>
+example.net:
+<pre class="example">
+...
+$INCLUDE username/example-common example.net.
+</pre>
+
+</li>
+<li>
+example.org:
+<pre class="example">
+...
+$INCLUDE username/example-common example.org.
+</pre>
+
+</li>
+<li>
+example-common:
+<pre class="example">
+;INCLUDED_BY example.net example.org
+...
+</pre>
+
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3_2" class="outline-3">
+<h3 id="sec-3_2"><span class="section-number-3">3.2</span> Git repository </h3>
+<div class="outline-text-3" id="text-3_2">
+
+
+<p>
+You can use the git repository as normal, only difference is that if you use the
+auto increment feature you also need to pull after a push as the receive hooks
+on the server make commits to the repository during a push.
+</p>
+
+
+
+<pre class="example">% git clone ns.example.net:zones
+% cd zones
+% # edit files
+% git commmit
+% git push origin &amp;&amp; git pull
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3_3" class="outline-3">
+<h3 id="sec-3_3"><span class="section-number-3">3.3</span> SSH commands </h3>
+<div class="outline-text-3" id="text-3_3">
+
+
+<p>
+The following SSH commands can be used:
+</p>
+<ul>
+<li>
+<code>update-record &lt;filename&gt; &lt;record&gt;</code>: updates the IP address of the first matched
+record in the given file to the SSH client's IP address
+<pre class="example">
+% ssh ns.example.net update-record foo IN A
+</pre>
+
+</li>
+<li>
+<code>list-keys</code>: list added ssh keys
+<pre class="example">
+% ssh ns.example.net list-keys
+</pre>
+
+</li>
+<li>
+<code>add-key</code>: add a new ssh key
+<pre class="example">
+% ssh ns.example.net add-key `cat id_rsa.pub`
+</pre>
+
+</li>
+<li>
+<code>del-key</code>: delete an ssh key from the config
+<pre class="example">
+% ssh ns.example.net del-key user@somewhere
+</pre>
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>

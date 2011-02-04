@@ -1,9 +1,21 @@
-#+TITLE: gitzone - README
-#+AUTHOR: Gabor Adam Toth
-#+OPTIONS: ^:{}
-#+INFOJS_OPT: view:showall
+                                gitzone - README
+                                ================
 
-* About
+Date: 2011-02-04 03:25:48 CET
+
+
+Table of Contents
+=================
+1 About 
+2 Installation 
+3 Usage 
+    3.1 Zone files 
+    3.2 Git repository 
+    3.3 SSH commands 
+
+
+1 About 
+~~~~~~~~
 
 gitzone is a git-based zone file management tool for BIND. Users can update
 their zones in a git repository then during a push the zone files are checked,
@@ -15,44 +27,48 @@ gitzone-shell is a wrapper for git-shell that restricts the user to the zones
 repository and provides some additional commands for dynamic DNS updates & SSH
 key management.
 
-* Installation
+2 Installation 
+~~~~~~~~~~~~~~~
 
 - edit the settings in gitzone-shell
 - create users with ssh access and set their shell to gitzone-shell
 - create a zones repo for each user and set receive.denyCurrentBranch to ignore,
   this allows pushing to a checked out repository. The checked out files are
   used for incrementing serials and validating the zones with named-checkzone
-  : # cd ~$user
-  : # git init zones
-  : # ln -s zones $username  # needed for named-checkzone
-  : # cd zones
-  : # git config receive.denyCurrentBranch ignore
+  # cd ~$user
+  # git init zones
+  # ln -s zones $username  # needed for named-checkzone
+  # cd zones
+  # git config receive.denyCurrentBranch ignore
 - create a .gitconfig for the user that contains user name & user email (used
   for auto increment commits)
 - edit the settings in gitzone.conf
 - create a directory for each user in $zone_dir and chown it to the user, this
   will contain a clone of the user's repository, the zone files here should be
   included in named.conf.
-  : # cd $zone_dir
-  : # mkdir $user
-  : # chown $user:$group $user
+  # cd $zone_dir
+  # mkdir $user
+  # chown $user:$group $user
 - edit named.conf and set directory in options to $zone_dir, e.g.:
-  : options {
-  :   directory "/var/named";
-  :   // ...
-  : }
-* Usage
+  options {
+    directory "/var/named";
+    // ...
+  }
 
-** Zone files
+3 Usage 
+~~~~~~~~
+
+3.1 Zone files 
+===============
 
 There are a few keywords you can use in the zone files:
 
 - ;AUTO_INCREMENT after a serial number to automatically increment it during
   a push. If the number is 8 digits and starts with 20 it's treated as a date.
   e.g.:
-  : example.net.  IN  SOA  ns1.example.net. hostmaster.example.net. (
-  :                        2011013101  ;AUTO_INCREMENT
-  :                        1d 2h 4w 2d )
+  example.net.  IN  SOA  ns1.example.net. hostmaster.example.net. (
+                         2011013101  ;AUTO_INCREMENT
+                         1d 2h 4w 2d )
 
 - $INCLUDE can be used to include other files from the repository, the file
   names should be prefixed with the user name
@@ -63,39 +79,40 @@ There are a few keywords you can use in the zone files:
   E.g. if you have the following files in the repository then a change in
   example-common would result in the reload of both example.net & example.org:
   - example.net:
-    : ...
-    : $INCLUDE username/example-common example.net.
+    ...
+    $INCLUDE username/example-common example.net.
   - example.org:
-    : ...
-    : $INCLUDE username/example-common example.org.
+    ...
+    $INCLUDE username/example-common example.org.
   - example-common:
-    : ;INCLUDED_BY example.net example.org
-    : ...
+    ;INCLUDED_BY example.net example.org
+    ...
 
-** Git repository
+3.2 Git repository 
+===================
 
 You can use the git repository as normal, only difference is that if you use the
 auto increment feature you also need to pull after a push as the receive hooks
 on the server make commits to the repository during a push.
 
-#+BEGIN_EXAMPLE
+
   % git clone ns.example.net:zones
   % cd zones
   % # edit files
   % git commmit
   % git push origin && git pull
-#+END_EXAMPLE
 
-** SSH commands
+3.3 SSH commands 
+=================
 
 The following SSH commands can be used:
 
 - =update-record <filename> <record>=: updates the IP address of the first matched
   record in the given file to the SSH client's IP address
-  : % ssh ns.example.net update-record foo IN A
+  % ssh ns.example.net update-record foo IN A
 - =list-keys=: list added ssh keys
-  : % ssh ns.example.net list-keys
+  % ssh ns.example.net list-keys
 - =add-key=: add a new ssh key
-  : % ssh ns.example.net add-key `cat id_rsa.pub`
+  % ssh ns.example.net add-key `cat id_rsa.pub`
 - =del-key=: delete an ssh key from the config
-  : % ssh ns.example.net del-key user@somewhere
+  % ssh ns.example.net del-key user@somewhere
