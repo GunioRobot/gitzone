@@ -17,16 +17,21 @@ key management.
 
 * Installation
 
+- set PREFIX in Makefile and make sure the paths in the hooks are correct, then
+  : # make install
 - edit the settings in gitzone-shell
 - create users with ssh access and set their shell to gitzone-shell
 - create a zones repo for each user and set receive.denyCurrentBranch to ignore,
   this allows pushing to a checked out repository. The checked out files are
-  used for incrementing serials and validating the zones with named-checkzone
+  used for incrementing serials and validating the zones with named-checkzone.
   : # cd ~$user
   : # git init zones
   : # ln -s zones $username  # needed for named-checkzone
   : # cd zones
   : # git config receive.denyCurrentBranch ignore
+  : # cd hooks
+  : # ln -s /usr/lib/gitzone/hooks/pre-receive
+  : # ln -s /usr/lib/gitzone/hooks/post-receive
 - create a .gitconfig for the user that contains user name & user email (used
   for auto increment commits)
 - edit the settings in gitzone.conf
@@ -36,11 +41,13 @@ key management.
   : # cd $zone_dir
   : # mkdir $user
   : # chown $user:$group $user
-- edit named.conf and set directory in options to $zone_dir, e.g.:
+- edit named.conf and set directory in options to $zone_dir, this is needed to
+  make relative file names working in $INCLUDE:
   : options {
   :   directory "/var/named";
   :   // ...
   : }
+
 * Usage
 
 ** Zone files
