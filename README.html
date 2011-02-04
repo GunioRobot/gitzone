@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 lang="en" xml:lang="en">
 <head>
 <title>gitzone - README</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-02-04 04:05:52 CET"/>
+<meta name="generated" content="2011-02-04 13:33:21 CET"/>
 <meta name="author" content="Gabor Adam Toth"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -310,7 +310,7 @@ The following SSH commands can be used:
 <code>update-record &lt;filename&gt; &lt;record&gt;</code>: updates the IP address of the first matched
 record in the given file to the SSH client's IP address
 <pre class="example">
-% ssh ns.example.net update-record foo IN A
+% ssh ns.example.net update-record example.net somehost IN A
 </pre>
 
 </li>
@@ -325,6 +325,11 @@ record in the given file to the SSH client's IP address
 <code>add-key</code>: add a new ssh key
 <pre class="example">
 % ssh ns.example.net add-key `cat id_rsa.pub`
+</pre>
+
+<p>or only allow one specific command:
+</p><pre class="example">
+% ssh ns.example.net add-key 'command="update-record example.net somehost IN A"' `cat id_rsa.pub`
 </pre>
 
 </li>

@@ -1,7 +1,7 @@
                                 gitzone - README
                                 ================
 
-Date: 2011-02-04 04:05:50 CET
+Date: 2011-02-04 13:33:28 CET
 
 
 Table of Contents
@@ -115,10 +115,12 @@ The following SSH commands can be used:
 
 - =update-record <filename> <record>=: updates the IP address of the first matched
   record in the given file to the SSH client's IP address
-  % ssh ns.example.net update-record foo IN A
+  % ssh ns.example.net update-record example.net somehost IN A
 - =list-keys=: list added ssh keys
   % ssh ns.example.net list-keys
 - =add-key=: add a new ssh key
   % ssh ns.example.net add-key `cat id_rsa.pub`
+  or only allow one specific command:
+  % ssh ns.example.net add-key 'command="update-record example.net somehost IN A"' `cat id_rsa.pub`
 - =del-key=: delete an ssh key from the config
   % ssh ns.example.net del-key user@somewhere
