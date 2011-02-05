@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>gitzone - README</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-02-05 22:05:34 CET"/>
+<meta name="generated" content="2011-02-05 22:15:36 CET"/>
 <meta name="author" content="Gabor Adam Toth"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -101,7 +101,8 @@ org_html_manager.setup();  // activate after the parameters are set
 <li><a href="#sec-3_2">3.2 SSH commands </a></li>
 <li><a href="#sec-3_3">3.3 Dynamic DNS </a>
 <ul>
-<li><a href="#sec-3_3_1">3.3.1 Debian </a></li>
+<li><a href="#sec-3_3_1">3.3.1 Debian, Ubuntu </a></li>
+<li><a href="#sec-3_3_2">3.3.2 Gentoo </a></li>
 </ul>
 </li>
 <li><a href="#sec-3_4">3.4 Zone files </a></li>
@@ -328,12 +329,24 @@ Run this command whenever the IP changes or the interface comes up.
 </div>
 
 <div id="outline-container-3_3_1" class="outline-4">
-<h4 id="sec-3_3_1"><span class="section-number-4">3.3.1</span> Debian </h4>
+<h4 id="sec-3_3_1"><span class="section-number-4">3.3.1</span> Debian, Ubuntu </h4>
 <div class="outline-text-4" id="text-3_3_1">
 
 
 <p>
-On Debian-like systems you can use a post-up command in /etc/network/interfaces.
+On Debian-like systems you can use a post-up command in <code>/etc/network/interfaces</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3_3_2" class="outline-4">
+<h4 id="sec-3_3_2"><span class="section-number-4">3.3.2</span> Gentoo </h4>
+<div class="outline-text-4" id="text-3_3_2">
+
+
+<p>
+On Gentoo you can put a postup() function in <code>/etc/conf.d/net</code>.
 </p>
 </div>
 </div>

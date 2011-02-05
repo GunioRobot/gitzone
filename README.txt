@@ -1,7 +1,7 @@
                                 gitzone - README
                                 ================
 
-Date: 2011-02-05 22:05:35 CET
+Date: 2011-02-05 22:15:32 CET
 
 
 Table of Contents
@@ -12,7 +12,8 @@ Table of Contents
     3.1 Git repository 
     3.2 SSH commands 
     3.3 Dynamic DNS 
-        3.3.1 Debian 
+        3.3.1 Debian, Ubuntu 
+        3.3.2 Gentoo 
     3.4 Zone files 
 
 
@@ -125,10 +126,15 @@ update your IP is:
 
 Run this command whenever the IP changes or the interface comes up.
 
-3.3.1 Debian 
+3.3.1 Debian, Ubuntu 
+---------------------
+
+On Debian-like systems you can use a post-up command in =/etc/network/interfaces=.
+
+3.3.2 Gentoo 
 -------------
 
-On Debian-like systems you can use a post-up command in /etc/network/interfaces.
+On Gentoo you can put a postup() function in =/etc/conf.d/net=.
 
 3.4 Zone files 
 ===============
