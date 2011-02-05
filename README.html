@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>gitzone - README</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-02-04 13:33:21 CET"/>
+<meta name="generated" content="2011-02-05 15:51:04 CET"/>
 <meta name="author" content="Gabor Adam Toth"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -51,7 +51,7 @@ lang="en" xml:lang="en">
 org_html_manager.set("TOC_DEPTH", "3");
 org_html_manager.set("LINK_HOME", "");
 org_html_manager.set("LINK_UP", "");
-org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("LOCAL_TOC", "0");
 org_html_manager.set("VIEW_BUTTONS", "0");
 org_html_manager.set("MOUSE_HINT", "underline");
 org_html_manager.set("FIXED_TOC", "0");
@@ -100,6 +100,7 @@ org_html_manager.setup();  // activate after the parameters are set
 <li><a href="#sec-3_1">3.1 Zone files </a></li>
 <li><a href="#sec-3_2">3.2 Git repository </a></li>
 <li><a href="#sec-3_3">3.3 SSH commands </a></li>
+<li><a href="#sec-3_4">3.4 Dynamic DNS </a></li>
 </ul>
 </li>
 </ul>
@@ -277,9 +278,10 @@ example-common:
 
 
 <p>
-You can use the git repository as normal, only difference is that if you use the
-auto increment feature you also need to pull after a push as the receive hooks
-on the server make commits to the repository during a push.
+To make changes to the zones you need to clone the git repository, edit the
+files, commit the changes and finally push the changes to the server.  If you
+use the auto increment feature you also need to pull after a push as the receive
+hooks on the server make commits to the repository during a push.
 </p>
 
 
@@ -339,9 +341,34 @@ record in the given file to the SSH client's IP address
 % ssh ns.example.net del-key user@somewhere
 </pre>
 
+
 </li>
 </ul>
 </div>
+
+</div>
+
+<div id="outline-container-3_4" class="outline-3">
+<h3 id="sec-3_4"><span class="section-number-3">3.4</span> Dynamic DNS </h3>
+<div class="outline-text-3" id="text-3_4">
+
+
+<p>
+In order to do automatic dynamic DNS updates, create an SSH key without a
+password and use the add-key command to add it with a command= parameter which
+has an update-record command in it, see the example in the previous
+section. This way the host doing the updates does not have access to the git
+repository as it is restricted to the specified command only. Then all you have to do to
+update your IP is:
+</p><pre class="example">
+% ssh ns.example.net
+</pre>
+
+
+<p>
+Run this command whenever the IP changes or the interface comes up. On
+Debian-like systems you can use a post-up command in /etc/network/interfaces.
+</p></div>
 </div>
 </div>
 
