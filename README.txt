@@ -1,7 +1,7 @@
                                 gitzone - README
                                 ================
 
-Date: 2011-02-05 22:15:32 CET
+Date: 2011-02-05 22:43:23 CET
 
 
 Table of Contents
@@ -32,6 +32,9 @@ key management.
 
 2 Installation 
 ~~~~~~~~~~~~~~~
+
+- get the source
+  # git clone git://git.tgbit.net/gitzone
 
 - set PREFIX in Makefile and make sure the paths in the hooks are correct, then
   # make install

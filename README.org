@@ -2,6 +2,7 @@
 #+AUTHOR: Gabor Adam Toth
 #+OPTIONS: ^:{}
 #+INFOJS_OPT: view:showall ltoc:nil
+#+STYLE: <style>html{max-width:1000px}</style>
 
 * About
 
@@ -16,6 +17,9 @@ repository and provides some additional commands for dynamic DNS updates & SSH
 key management.
 
 * Installation
+
+- get the source
+  : # git clone git://git.tgbit.net/gitzone
 
 - set PREFIX in Makefile and make sure the paths in the hooks are correct, then
   : # make install
