@@ -1,7 +1,7 @@
                                 gitzone - README
                                 ================
 
-Date: 2011-02-05 20:23:25 CET
+Date: 2011-02-05 20:33:15 CET
 
 
 Table of Contents
@@ -63,7 +63,7 @@ key management.
   # chown $user:$group $user
 
 - edit named.conf and set directory in options to $zone_dir, this is needed to
-  make relative file names working in $INCLUDE:
+  make relative file names work in $INCLUDE:
   options {
     directory "/var/named";
     // ...
