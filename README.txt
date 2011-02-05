@@ -1,7 +1,7 @@
                                 gitzone - README
                                 ================
 
-Date: 2011-02-05 20:33:15 CET
+Date: 2011-02-05 22:03:54 CET
 
 
 Table of Contents
@@ -9,10 +9,11 @@ Table of Contents
 1 About 
 2 Installation 
 3 Usage 
-    3.1 Zone files 
-    3.2 Git repository 
-    3.3 SSH commands 
-    3.4 Dynamic DNS 
+    3.1 Git repository 
+    3.2 SSH commands 
+    3.3 Dynamic DNS 
+        3.3.1 Debian 
+    3.4 Zone files 
 
 
 1 About 
@@ -72,7 +73,64 @@ key management.
 3 Usage 
 ~~~~~~~~
 
-3.1 Zone files 
+3.1 Git repository 
+===================
+
+To make changes to the zones you need to clone the git repository, edit the
+files, commit the changes and finally push the changes to the server.  If you
+use the auto increment feature you also need to pull after a push as the receive
+hooks on the server make commits to the repository during a push.
+
+
+  % git clone ns.example.net:zones
+  % cd zones
+  % # edit files
+  % git commmit
+  % git push origin && git pull
+
+3.2 SSH commands 
+=================
+
+The following SSH commands are provided by gitzone-shell:
+
+- =update-record <filename> <record>=: updates the IP address of the first matched
+  record in the given file to the SSH client's IP address.
+  % ssh ns.example.net update-record example.net somehost IN A
+
+- SSH key management commands, to use these =touch
+  .ssh/authorized_keys_edit_enabled= in the users' home directories.
+
+  - =list-keys=: list added ssh keys
+    % ssh ns.example.net list-keys
+
+  - =add-key=: add a new ssh key
+    % ssh ns.example.net add-key `cat id_rsa.pub`
+
+    or only allow one specific command:
+    % ssh ns.example.net add-key 'command="update-record example.net somehost IN A"' `cat id_rsa.pub`
+
+  - =del-key=: delete an ssh key from the config
+    % ssh ns.example.net del-key user@somewhere
+
+3.3 Dynamic DNS 
+================
+
+In order to do automatic dynamic DNS updates, create an SSH key without a
+password and use the add-key command to add it with a command= parameter which
+has an update-record command in it, see the example in the previous
+section. This way the host doing the updates does not have access to the git
+repository as it is restricted to the specified command only. Then all you have to do to
+update your IP is:
+% ssh ns.example.net
+
+Run this command whenever the IP changes or the interface comes up.
+
+3.3.1 Debian 
+-------------
+
+On Debian-like systems you can use a post-up command in /etc/network/interfaces.
+
+3.4 Zone files 
 ===============
 
 There are a few keywords you can use in the zone files:
@@ -105,54 +163,3 @@ There are a few keywords you can use in the zone files:
   - example-common:
     ;INCLUDED_BY example.net example.org
     ...
-
-3.2 Git repository 
-===================
-
-To make changes to the zones you need to clone the git repository, edit the
-files, commit the changes and finally push the changes to the server.  If you
-use the auto increment feature you also need to pull after a push as the receive
-hooks on the server make commits to the repository during a push.
-
-
-  % git clone ns.example.net:zones
-  % cd zones
-  % # edit files
-  % git commmit
-  % git push origin && git pull
-
-3.3 SSH commands 
-=================
-
-The following SSH commands can be used:
-
-- =update-record <filename> <record>=: updates the IP address of the first matched
-  record in the given file to the SSH client's IP address
-  % ssh ns.example.net update-record example.net somehost IN A
-
-- =list-keys=: list added ssh keys
-  % ssh ns.example.net list-keys
-
-- =add-key=: add a new ssh key
-  % ssh ns.example.net add-key `cat id_rsa.pub`
-
-  or only allow one specific command:
-  % ssh ns.example.net add-key 'command="update-record example.net somehost IN A"' `cat id_rsa.pub`
-
-- =del-key=: delete an ssh key from the config
-  % ssh ns.example.net del-key user@somewhere
-
-3.4 Dynamic DNS 
-================
-
-In order to do automatic dynamic DNS updates, create an SSH key without a
-password and use the add-key command to add it with a command= parameter which
-has an update-record command in it, see the example in the previous
-section. This way the host doing the updates does not have access to the git
-repository as it is restricted to the specified command only. Then all you have to do to
-update your IP is:
-% ssh ns.example.net
-
-Run this command whenever the IP changes or the interface comes up.
-
-- *Debian*: On Debian-like systems you can use a post-up command in /etc/network/interfaces.
