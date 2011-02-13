@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>gitzone - README</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-02-05 22:43:22 CET"/>
+<meta name="generated" content="2011-02-13 15:57:53 CET"/>
 <meta name="author" content="Gabor Adam Toth"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -191,7 +191,7 @@ edit the settings in gitzone.conf
 
 </li>
 <li>
-create a directory for each user in $zone_dir and chown it to the user, this
+create a directory for each user in $zone_dir and it them to the user, this
 will contain a clone of the user's repository, the zone files here should be
 included in named.conf.
 <pre class="example">
@@ -203,8 +203,11 @@ included in named.conf.
 
 </li>
 <li>
-edit named.conf and set directory in options to $zone_dir, this is needed to
-make relative file names work in $INCLUDE:
+edit named.conf
+<ul>
+<li>
+set directory in options to $zone_dir, this is needed to make relative file
+names work in $INCLUDE:
 <pre class="example">
 options {
   directory "/var/named";
@@ -213,6 +216,18 @@ options {
 </pre>
 
 
+</li>
+<li>
+put user zone configuration in a separate file for each user and include them:
+<pre class="example">
+include "/etc/bind/users/user1.conf";
+include "/etc/bind/users/user2.conf";
+include "/etc/bind/users/user3.conf";
+</pre>
+
+
+</li>
+</ul>
 </li>
 </ul>
 </div>

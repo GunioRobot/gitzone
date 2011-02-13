@@ -1,7 +1,7 @@
                                 gitzone - README
                                 ================
 
-Date: 2011-02-05 22:43:23 CET
+Date: 2011-02-13 15:57:55 CET
 
 
 Table of Contents
@@ -60,19 +60,25 @@ key management.
 
 - edit the settings in gitzone.conf
 
-- create a directory for each user in $zone_dir and chown it to the user, this
+- create a directory for each user in $zone_dir and it them to the user, this
   will contain a clone of the user's repository, the zone files here should be
   included in named.conf.
   # cd $zone_dir
   # mkdir $user
   # chown $user:$group $user
 
-- edit named.conf and set directory in options to $zone_dir, this is needed to
-  make relative file names work in $INCLUDE:
-  options {
-    directory "/var/named";
-    // ...
-  }
+- edit named.conf
+  - set directory in options to $zone_dir, this is needed to make relative file
+    names work in $INCLUDE:
+    options {
+      directory "/var/named";
+      // ...
+    }
+
+  - put user zone configuration in a separate file for each user and include them:
+    include "/etc/bind/users/user1.conf";
+    include "/etc/bind/users/user2.conf";
+    include "/etc/bind/users/user3.conf";
 
 3 Usage 
 ~~~~~~~~
