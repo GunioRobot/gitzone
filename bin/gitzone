@@ -1,12 +1,35 @@
 #!/usr/bin/env perl
 #
-# gitzone by Gabor Adam Toth <tg-gitzone at tgbit dot net>
+# Copyright (C) 2011 by Gabor Adam Toth <tg-gitzone at tgbit dot net>
 #
-# this program is called from a pre-receive & post-receive git hook, if a push
-# is made to the master branch changed files are validated with named-checkzone,
-# the push is rejected if there's an error in one of the zone files specified in
-# the config file, if everything is OK, the zone files are copied to $zone_dir
-# and the zone is reloaded with rndc reload $zone $class $view
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+#
+# gitzone
+# --------
+# This program is called from a pre-receive & post-receive git hook. If a push
+# is made to the master branch changed files are validated with named-checkzone>
+# The push is rejected if there's an error in one of the zone files specified in
+# the config file. If everything is OK, the zone files are copied to $zone_dir
+# and the zone is reloaded with the following command:
+# rndc reload $zone $class $view
+#
 
 use warnings;
 use strict;
