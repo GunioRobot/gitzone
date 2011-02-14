@@ -1,7 +1,7 @@
                                 gitzone - README
                                 ================
 
-Date: 2011-02-14 07:04:43 CET
+Date: 2011-02-14 19:59:28 CET
 
 
 Table of Contents
@@ -103,7 +103,7 @@ hooks on the server make commits to the repository during a push.
   % git clone ns.example.net:zones
   % cd zones
   % # edit files
-  % git commmit
+  % git commit
   % git push origin && git pull
 
 3.2 SSH commands 
