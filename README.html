@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>gitzone - README</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-02-14 19:59:25 CET"/>
+<meta name="generated" content="2011-02-14 20:02:51 CET"/>
 <meta name="author" content="Gabor Adam Toth"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -280,7 +280,8 @@ hooks on the server make commits to the repository during a push.
 <pre class="example">% git clone ns.example.net:zones
 % cd zones
 % # edit files
-% git commit
+% git add .
+% git commit -m 'commit msg'
 % git push origin &amp;&amp; git pull
 </pre>
 
