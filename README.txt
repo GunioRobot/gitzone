@@ -1,7 +1,7 @@
                                 gitzone - README
                                 ================
 
-Date: 2011-02-14 20:02:52 CET
+Date: 2011-02-19 15:17:00 CET
 
 
 Table of Contents
@@ -26,7 +26,7 @@ updated & reloaded from git receive hooks. If there's an error in a file being
 pushed then the push is rejected, thus only correct files are stored on the
 server.
 
-gitzone-shell is a wrapper for git-shell that restricts the user to the zones
+gitzone-shell is similar to git-shell but it restricts the user to the zones
 repository and provides some additional commands for dynamic DNS updates & SSH
 key management.
 

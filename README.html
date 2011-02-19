@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>gitzone - README</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-02-14 20:02:51 CET"/>
+<meta name="generated" content="2011-02-19 15:16:55 CET"/>
 <meta name="author" content="Gabor Adam Toth"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -21,6 +21,9 @@ lang="en" xml:lang="en">
   .target { }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
   p.verse { margin-left: 3% }
   pre {
 	border: 1pt solid #AEBDCC;
@@ -31,7 +34,13 @@ lang="en" xml:lang="en">
         overflow:auto;
   }
   table { border-collapse: collapse; }
-  td, th { vertical-align: top; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
   dt { font-weight: bold; }
   div.figure { padding: 0.5em; }
   div.figure p { text-align: center; }
@@ -83,6 +92,7 @@ org_html_manager.setup();  // activate after the parameters are set
  }
 /*]]>*///-->
 </script>
+
 </head>
 <body>
 <div id="content">
@@ -126,7 +136,7 @@ pushed then the push is rejected, thus only correct files are stored on the
 server.
 </p>
 <p>
-gitzone-shell is a wrapper for git-shell that restricts the user to the zones
+gitzone-shell is similar to git-shell but it restricts the user to the zones
 repository and provides some additional commands for dynamic DNS updates &amp; SSH
 key management.
 </p>
@@ -246,11 +256,12 @@ include "/etc/bind/users/user2.conf";
 include "/etc/bind/users/user3.conf";
 </pre>
 
+</li>
+</ul>
+</li>
+</ul>
 
-</li>
-</ul>
-</li>
-</ul>
+
 </div>
 
 </div>
@@ -342,11 +353,12 @@ or only allow one specific command:
 % ssh ns.example.net del-key user@somewhere
 </pre>
 
+</li>
+</ul>
+</li>
+</ul>
 
-</li>
-</ul>
-</li>
-</ul>
+
 </div>
 
 </div>
@@ -464,6 +476,7 @@ example-common:
 </ul>
 </li>
 </ul>
+
 </div>
 </div>
 </div>
