@@ -1,7 +1,7 @@
                                 gitzone - README
                                 ================
 
-Date: 2011-02-19 15:17:00 CET
+Date: 2011-02-27 00:59:45 CET
 
 
 Table of Contents
@@ -46,10 +46,10 @@ key management.
 - create a zones repo for each user and set receive.denyCurrentBranch to ignore,
   this allows pushing to a checked out repository. The checked out files are
   used for incrementing serials and validating the zones with named-checkzone.
-  # cd ~$user
-  # git init zones
-  # ln -s zones $username  # needed for named-checkzone
-  # cd zones
+  # mkdir -p ~$user/zones
+  # cd ~$user/zones
+  # git init $user
+  # cd $user
   # git config receive.denyCurrentBranch ignore
   # cd hooks
   # ln -s /usr/libexec/gitzone/pre-receive
@@ -100,6 +100,8 @@ use the auto increment feature you also need to pull after a push as the receive
 hooks on the server make commits to the repository during a push.
 
 
+  % git clone ns.example.net:zones/$user zones
+  % # or if you're using gitzone-shell you can use any path:
   % git clone ns.example.net:zones
   % cd zones
   % # edit files

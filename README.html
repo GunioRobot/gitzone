@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>gitzone - README</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-02-19 15:16:55 CET"/>
+<meta name="generated" content="2011-02-27 00:59:44 CET"/>
 <meta name="author" content="Gabor Adam Toth"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -179,10 +179,10 @@ create a zones repo for each user and set receive.denyCurrentBranch to ignore,
 this allows pushing to a checked out repository. The checked out files are
 used for incrementing serials and validating the zones with named-checkzone.
 <pre class="example">
-# cd ~$user
-# git init zones
-# ln -s zones $username  # needed for named-checkzone
-# cd zones
+# mkdir -p ~$user/zones
+# cd ~$user/zones
+# git init $user
+# cd $user
 # git config receive.denyCurrentBranch ignore
 # cd hooks
 # ln -s /usr/libexec/gitzone/pre-receive
@@ -288,7 +288,9 @@ hooks on the server make commits to the repository during a push.
 
 
 
-<pre class="example">% git clone ns.example.net:zones
+<pre class="example">% git clone ns.example.net:zones/$user zones
+% # or if you're using gitzone-shell you can use any path:
+% git clone ns.example.net:zones
 % cd zones
 % # edit files
 % git add .
