@@ -1,7 +1,7 @@
                                 gitzone - README
                                 ================
 
-Date: 2011-02-27 00:59:45 CET
+Date: 2011-03-02 22:27:26 CET
 
 
 Table of Contents
@@ -55,9 +55,13 @@ key management.
   # ln -s /usr/libexec/gitzone/pre-receive
   # ln -s /usr/libexec/gitzone/post-receive
 
+- if you want to use a repository locally add these hooks as well / instead:
+  # ln -s /usr/libexec/gitzone/pre-commit
+  # ln -s /usr/libexec/gitzone/post-commit
+
 - create a .gitconfig for each user that contains user name & user email (used
   for auto increment commits):
-  # git config -f ~$user/.gitconfig user.name Auto Incrementer
+  # git config -f ~$user/.gitconfig user.name $user
   # git config -f ~$user/.gitconfig user.email "$user@ns.example.com"
 
 - add ssh keys to ~$user/.ssh/authorized_keys and enable ssh key editing if desired:
@@ -84,9 +88,9 @@ key management.
     }
 
   - put user zone configuration in a separate file for each user and include them:
-    include "/etc/bind/users/user1.conf";
-    include "/etc/bind/users/user2.conf";
-    include "/etc/bind/users/user3.conf";
+    include "/etc/bind/repos/user1.conf";
+    include "/etc/bind/repos/user2.conf";
+    include "/etc/bind/repos/user3.conf";
 
 3 Usage 
 ~~~~~~~~

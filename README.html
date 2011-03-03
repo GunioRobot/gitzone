@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>gitzone - README</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-02-27 00:59:44 CET"/>
+<meta name="generated" content="2011-03-02 22:27:22 CET"/>
 <meta name="author" content="Gabor Adam Toth"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -192,10 +192,19 @@ used for incrementing serials and validating the zones with named-checkzone.
 
 </li>
 <li>
+if you want to use a repository locally add these hooks as well / instead:
+<pre class="example">
+# ln -s /usr/libexec/gitzone/pre-commit
+# ln -s /usr/libexec/gitzone/post-commit
+</pre>
+
+
+</li>
+<li>
 create a .gitconfig for each user that contains user name &amp; user email (used
 for auto increment commits):
 <pre class="example">
-# git config -f ~$user/.gitconfig user.name Auto Incrementer
+# git config -f ~$user/.gitconfig user.name $user
 # git config -f ~$user/.gitconfig user.email "$user@ns.example.com"
 </pre>
 
@@ -251,9 +260,9 @@ options {
 <li>
 put user zone configuration in a separate file for each user and include them:
 <pre class="example">
-include "/etc/bind/users/user1.conf";
-include "/etc/bind/users/user2.conf";
-include "/etc/bind/users/user3.conf";
+include "/etc/bind/repos/user1.conf";
+include "/etc/bind/repos/user2.conf";
+include "/etc/bind/repos/user3.conf";
 </pre>
 
 </li>
