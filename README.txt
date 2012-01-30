@@ -6,18 +6,18 @@ Date: 2011-03-02 22:27:26 CET
 
 Table of Contents
 =================
-1 About 
-2 Installation 
-3 Usage 
-    3.1 Git repository 
-    3.2 SSH commands 
-    3.3 Dynamic DNS 
-        3.3.1 Debian, Ubuntu 
-        3.3.2 Gentoo 
-    3.4 Zone files 
+1 About
+2 Installation
+3 Usage
+    3.1 Git repository
+    3.2 SSH commands
+    3.3 Dynamic DNS
+        3.3.1 Debian, Ubuntu
+        3.3.2 Gentoo
+    3.4 Zone files
 
 
-1 About 
+1 About
 ~~~~~~~~
 
 gitzone is a git-based zone file management tool for BIND. Users can update
@@ -30,7 +30,7 @@ gitzone-shell is similar to git-shell but it restricts the user to the zones
 repository and provides some additional commands for dynamic DNS updates & SSH
 key management.
 
-2 Installation 
+2 Installation
 ~~~~~~~~~~~~~~~
 
 - get the source
@@ -92,10 +92,10 @@ key management.
     include "/etc/bind/repos/user2.conf";
     include "/etc/bind/repos/user3.conf";
 
-3 Usage 
+3 Usage
 ~~~~~~~~
 
-3.1 Git repository 
+3.1 Git repository
 ===================
 
 To make changes to the zones you need to clone the git repository, edit the
@@ -113,7 +113,7 @@ hooks on the server make commits to the repository during a push.
   % git commit -m 'commit msg'
   % git push origin && git pull
 
-3.2 SSH commands 
+3.2 SSH commands
 =================
 
 The following SSH commands are provided by gitzone-shell:
@@ -137,7 +137,7 @@ The following SSH commands are provided by gitzone-shell:
   - =del-key=: delete an ssh key from the config
     % ssh ns.example.net del-key user@somewhere
 
-3.3 Dynamic DNS 
+3.3 Dynamic DNS
 ================
 
 In order to do automatic dynamic DNS updates, create an SSH key without a
@@ -150,17 +150,17 @@ update your IP is:
 
 Run this command whenever the IP changes or the interface comes up.
 
-3.3.1 Debian, Ubuntu 
+3.3.1 Debian, Ubuntu
 ---------------------
 
 On Debian-like systems you can use a post-up command in =/etc/network/interfaces=.
 
-3.3.2 Gentoo 
+3.3.2 Gentoo
 -------------
 
 On Gentoo you can put a postup() function in =/etc/conf.d/net=.
 
-3.4 Zone files 
+3.4 Zone files
 ===============
 
 There are a few keywords you can use in the zone files:
